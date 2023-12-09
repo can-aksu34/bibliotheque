@@ -138,13 +138,13 @@ module.exports = app => {
     var router = require("express").Router();
   
     const dataChecker = [check('nom').isLength({ min: 2, max: 20 }), check('prenom').isLength({ max: 40 })]
-  
     router.get("/", auteur.findAll);
     router.get("/:id", auteur.findOne);
     router.post("/", dataChecker, auteur.create);
     router.put("/:id", dataChecker, auteur.update);
     router.delete("/:id", auteur.delete);
     router.delete("/", auteur.deleteAll);
+    
   
     app.use('/api/auteur', router);
   };
