@@ -64,6 +64,7 @@ require("./src/routes/auteur.routes.js")(app);
 require("./src/routes/genre.routes.js")(app);
 require("./src/routes/couverture.routes.js")(app);
 require("./src/routes/livre.routes.js")(app);
+require("./src/routes/user.routes.js")(app);
 
 app.listen(PORT, () => {
   console.log(`Le serveur est démarré sur le port ${PORT}.`);
