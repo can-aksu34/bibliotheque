@@ -1,4 +1,5 @@
 // user.routes.js
+const authMiddleware = require('../middlewares/authMiddleware');
 module.exports = (app) => {
     const user = require("../controllers/user.controller.js");
     const { check } = require("express-validator");
@@ -16,6 +17,7 @@ module.exports = (app) => {
       check("password").isLength({ min: 8 }).matches(/\d/),
     ];
   
+    //router.get("/", authMiddleware.verifyToken, user.findAll);
     router.get("/", user.findAll);
     router.get("/:id", user.findOne);
 

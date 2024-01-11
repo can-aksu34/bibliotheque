@@ -1,31 +1,18 @@
+const jwt = require('jsonwebtoken');
 const User = require("../models/user.model.js");
 const { validationResult } = require('express-validator');
 
+const generateToken = (userId) => {
+  
+  return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
+};
+
 exports.findAll = (req, res) => {
-  User.getAll((err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Une erreur s'est produite lors de la récupération des utilisateurs."
-      });
-    else res.send(data);
-  });
+  // ...
 };
 
 exports.findOne = (req, res) => {
-  User.findById(req.params.id, (err, data) => {
-    if (err) {
-      if (err.kind === "not_found") {
-        res.status(404).send({
-          message: `Utilisateur introuvable pour l'identifiant ${req.params.id}.`
-        });
-      } else {
-        res.status(500).send({
-          message: "Erreur lors de la récupération de l'utilisateur avec l'identifiant " + req.params.id
-        });
-      }
-    } else res.send(data);
-  });
+  // ...
 };
 
 exports.create = (req, res) => {
@@ -41,7 +28,7 @@ exports.create = (req, res) => {
 
   const user = new User({
     username: req.body.username,
-    password: req.body.password  // Assurez-vous que le mot de passe est haché avant de le stocker dans la base de données
+    password: req.body.password 
   });
 
   User.create(user, (err, data) => {
@@ -50,7 +37,10 @@ exports.create = (req, res) => {
         message:
           err.message || "Une erreur s'est produite lors de la création de l'utilisateur."
       });
-    else res.send(data);
+    else {
+      const token = generateToken(data.id);
+      res.send({ user: data, token });
+    }
   });
 };
 
@@ -67,7 +57,7 @@ exports.updatePassword = (req, res) => {
 
   User.updatePassword(
     req.params.id,
-    req.body.password,  // Assurez-vous que le nouveau mot de passe est haché avant de le stocker dans la base de données
+    req.body.password, 
     (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
@@ -79,7 +69,10 @@ exports.updatePassword = (req, res) => {
             message: "Erreur lors de la mise à jour du mot de passe de l'utilisateur avec l'identifiant " + req.params.id
           });
         }
-      } else res.send(data);
+      } else {
+        const token = generateToken(req.params.id);
+        res.send({ user: data, token });
+      }
     }
   );
 };

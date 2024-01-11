@@ -1,5 +1,4 @@
-// const mysql = require("mysql");
-// const dbConfig = require("../config/db.config.js");
+
 
 // const connection = mysql.createConnection({
 //   host: dbConfig.HOST,
@@ -8,12 +7,6 @@
 //   database: dbConfig.DB
 // });
 
-// connection.connect(error => {
-//   if (error) throw error;
-//   console.log("Connection à la BDD avec succès.");
-// });
-
-// module.exports = connection;
 const mysql = require("mysql");
 const dbConfig = require("../config/db.config.js");
 
