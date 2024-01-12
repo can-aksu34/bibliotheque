@@ -7,7 +7,6 @@ module.exports = (app) => {
     const dataChecker = [
         check("titre").isLength({ min: 2, max: 100 }),
         check("nb_pages").isInt({ min: 1 }),
-        // Ajoutez d'autres validateurs pour les champs supplémentaires si nécessaire
     ];
 
     router.get("/", livre.findAll);
