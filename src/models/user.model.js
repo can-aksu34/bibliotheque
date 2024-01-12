@@ -3,8 +3,8 @@ const bcrypt = require("bcrypt");
 
 const User = function (user) {
   this.username = user.username;
-  // this.password = bcrypt.hashSync(user.password, 10);
-  this.password = user.password;
+  this.password = bcrypt.hashSync(user.password, 10);
+  //this.password = user.password;
 };
 
 User.findById = (id, result) => {

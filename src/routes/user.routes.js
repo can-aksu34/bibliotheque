@@ -17,13 +17,14 @@ module.exports = (app) => {
       check("password").isLength({ min: 8 }).matches(/\d/),
     ];
   
-    //router.get("/", authMiddleware.verifyToken, user.findAll);
-    router.get("/", user.findAll);
+    router.get("/login", authMiddleware.verifyToken, user.findAll);
+    //router.get("/", user.findAll);
     router.get("/:id", user.findOne);
 
     // router.post("/", registrationDataChecker, user.create);
     // router.put("/:id", passwordUpdateDataChecker, user.updatePassword);
     router.post("/", user.create);
+    router.post("/login", authMiddleware.verifyToken, user.create);
     router.put("/:id", user.updatePassword);
 
     router.delete("/:id", user.delete);
