@@ -15,7 +15,7 @@ const limiter = rateLimit({
   max: 100, // limite chaque IP à 100 requêtes par fenêtre
 });
 
-// Appliquer le middleware à toutes les routes
+// Applique le middleware à toutes les routes
 app.use(limiter);
 
 
